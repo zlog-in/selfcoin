@@ -1,11 +1,13 @@
 import hashlib
 
 
-def lillte_endian_on_int(b):
+def little_endian_on_int(b):
+    """transfer a little-endian format to an integer"""
     return int.from_bytes(b, 'little')
 
 
 def int_to_little_endian(n, length):
+    """transfer an integer to a little-endian format"""
     return n.to_bytes(length, 'little')
 
 
@@ -23,6 +25,7 @@ BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdedfhijkmnopqrstuvwxyz'
 
 
 def encode_base58(s):
+
     count = 0
     for c in s:
         if c == 0:
