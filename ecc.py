@@ -1,7 +1,11 @@
 import hashlib
 import hmac
 from help import hash160, encode_base58_checksum
-from random import randint
+
+"""
+this is a crypto library for BitCoin
+"""
+
 
 
 class FieldElement:
