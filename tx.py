@@ -32,8 +32,9 @@ class tx:
 
 
     @classmethod
-    def parse(cls, serialization):
-        version = serialization[0:4]
-        
+    def parse(cls, stream):
+        version = stream.read(4)
+
+
 
 

@@ -7,9 +7,9 @@ this is a crypto library for BitCoin
 """
 
 
-
 class FieldElement:
     """ every number in ECC is over a finite field """
+
     def __init__(self, num, prime):
         if num >= prime or num < 0:
             error = 'Num {} not in field range 0 to {}'.format(num, prime - 1)
@@ -70,6 +70,7 @@ class Point:
     """ a point in ECC must in this curve: y**2 = x**3 + a*x + b
         infinity is the null point with its x or y labeled by None
     """
+
     def __init__(self, x, y, a, b):
         self.x = x
         self.y = y
@@ -136,27 +137,6 @@ class Point:
             coef >>= 1  # <5>
         return result
 
-    def test_add(self):
-        prime = 223
-        a = FieldElement(0, prime)
-        b = FieldElement(7, prime)
-        additions = (
-            (192, 105, 17, 56, 170, 142),
-            (47, 71, 117, 141, 60, 139),
-            (143, 98, 76, 66, 47, 71),
-        )
-        for x1_raw, y1_raw, x2_raw, y2_raw, x3_raw, y3_raw in additions:
-            x1 = FieldElement(x1_raw, prime)
-            y1 = FieldElement(y1_raw, prime)
-            p1 = Point(x1, y1, a, b)
-            x2 = FieldElement(x2_raw, prime)
-            y2 = FieldElement(y2_raw, prime)
-            p2 = Point(x2, y2, a, b)
-            x3 = FieldElement(x3_raw, prime)
-            y3 = FieldElement(y3_raw, prime)
-            p3 = Point(x3, y3, a, b)
-            self.assertEqual(p1 + p2, p3)
-
 
 P = 2 ** 256 - 2 ** 32 - 977
 
@@ -180,6 +160,7 @@ N = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
 
 class S256Point(Point):
     """ the public key in bitcoin is a point at ECC under A, B, N, G"""
+
     def __init__(self, x, y, a=None, b=None):
         a, b = S256Field(A), S256Field(B)
         if type(x) == int:
@@ -246,7 +227,7 @@ class S256Point(Point):
             prefix = b'\x6f'
         else:
             prefix = b'\x00'
-        return encode_base58_checksum(prefix+h160)
+        return encode_base58_checksum(prefix + h160)
 
 
 G = S256Point(
@@ -331,4 +312,3 @@ class PrivateKey:
         else:
             suffix = b''
         return encode_base58_checksum(prefix + secret_bytes + suffix)
-

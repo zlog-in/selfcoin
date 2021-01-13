@@ -1,5 +1,15 @@
 import hashlib
+from unittest import TestSuite, TextTestRunner
 
+
+# for Test Case
+def run(test):
+    suite = TestSuite()
+    suite.addTest(test)
+    TextTestRunner().run(suite)
+
+
+# for serialization
 
 def little_endian_on_int(b):
     """transfer a little-endian format to an integer"""
@@ -43,3 +53,5 @@ def encode_base58(s):
 
 def encode_base58_checksum(s):
     return encode_base58(s + hash256(s)[:4])
+
+
